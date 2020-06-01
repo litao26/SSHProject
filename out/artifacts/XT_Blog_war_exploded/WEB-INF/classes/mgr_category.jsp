@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +8,27 @@
     <title>Title</title>
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/amazeui.min.css" />
-    <link rel="stylesheet" href="js/pageStyle.css">
+<%--    <link rel="stylesheet" href="js/pageStyle.css">--%>
     <script src="js/jquery.min.js"></script>
+    <style>
+        #modal_content2{
+            padding: 30px 20px;
+            width: 400px;
+            height: 200px;
+            background: white;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            margin-left: -200px;
+            margin-top: -100px;
+            display: none;
+        }
+        #close2{
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+    </style>
 </head>
 <body>
 
@@ -37,13 +57,23 @@
         <li>修改分类</li>
         <li>删除分类</li>
     </ul>
-
-    <ul class="list_goods_ul">
-        <li>01</li>
-        <li>分类名称</li>
-        <li><a href="#"><img class="img_icon" src="images/edit_icon.png" alt=""></a></li>
-        <li><a href="#"><img class="img_icon" src="images/delete_icon.png" alt=""></a></li>
-    </ul>
+    <%--取数据--%>
+    <s:iterator value="categoryList" var="category">
+        <ul class="list_goods_ul">
+            <li><s:property value="#category.parentid" /> </li>
+            <li><s:property value="#category.cname" /> </li>
+            <li>
+                <a href="#" class="updatebtn" data-id="<s:property value="#category.cid" />">
+                    <img class="img_icon" src="images/edit_icon.png" alt="">
+                </a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/category_delete.action?cid=<s:property value="#category.cid"/>">
+                    <img class="img_icon" src="images/delete_icon.png" alt="">
+                </a>
+            </li>
+        </ul>
+    </s:iterator>
 
 </div>
 
@@ -63,14 +93,41 @@
         </div>
         <div class="item1">
             <div>
-                <span>分类名称：</span>
-                <input type="text" class="am-form-field" >&nbsp;&nbsp;
+                <span>parentid:&nbsp;</span>
+                <input type="text" class="am-form-field" id="parentid">&nbsp;&nbsp;
+                <br/>
+                <span>分类名称:</span>
+                <input type="text" class="am-form-field" id="cname">
+                <br/>
             </div>
         </div>
+
         <div class="item1">
-            <button class="am-btn am-btn-default" type="button" >添加</button>
+            <button class="am-btn am-btn-default" type="button" id="addcategory">添加</button>
         </div>
         
+    </div>
+</div>
+<div id="modal_content2" style="height: 250px; display: none">
+    <div id="close2"><img src="images/delete_icon.png" alt=""></div>
+    <div class="edit_content">
+        <div class="item1">
+            <div>
+                <span>添加分类：</span>
+            </div>
+        </div>
+        <div class="item1" >
+            <div>
+                <span>parentid：</span>
+                <input type="text" class="am-form-field" id="parentid2" >&nbsp;&nbsp;
+                <br/>
+                <span>分类名称：</span>
+                <input type="text" class="am-form-field" id="cname2" >&nbsp;&nbsp;
+                <br/>
+                <input type="hidden" id="cid2">
+                <button class="am-btn am-btn-default" type="button" id="updatebtn">修改</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -84,6 +141,47 @@
         $("#close").click(function () {
             $("#modal_view").fadeOut();
             $("#modal_content").fadeOut();
+        });
+        /*添加添加按钮的点击*/
+        $("#addcategory").click(function () {
+            /*获取文本框内容*/
+            var parentid =  $("#parentid").val();
+            var cname = $("#cname").val();
+            $(window).attr('location','${pageContext.request.contextPath}/category_add.action?parentid='+parentid+'&cname='+cname);
+            // alert("你好");
+
+        });
+        /*监听修改按钮的点击*/
+        $(".updatebtn").click(function () {
+            /*1.当前点的是那一条记录*/
+            var cid = $(this).data("id");
+            $.post(
+                "${pageContext.request.contextPath}/category_updateUI.action",
+                {"cid":cid},
+                function (data) {
+                    // console.log(data);
+                    // 把json数据展示给文本框
+                    $("#parentid2").val(data[0].parentid);
+                    $("#cname2").val(data[0].cname);
+                    $("#cid2").val(data[0].cid);
+
+                },
+                "json");
+            /*2.修改界面弹出来*/
+            $("#modal_view").fadeIn();
+            $("#modal_content2").fadeIn();
+        });
+        $("#close2").click(function () {
+            $("#modal_view").fadeOut();
+            $("#modal_content2").fadeOut();
+        });
+        $("#updatebtn").click(function () {
+            // 获取文本框值
+            var parentid =  $("#parentid2").val();
+            var cname = $("#cname2").val();
+            var cid = $("#cid2").val();
+            $(window).attr('location','${pageContext.request.contextPath}/category_update.action?parentid='+parentid+'&cname='+cname+'&cid='+cid);
+            // 发送请求
         });
     });
 </script>

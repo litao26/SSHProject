@@ -16,7 +16,12 @@
         <!--  分类 action  -->
         <action name="category_*" class="categoryAction" method="{1}">
             <result name="list">/mgr_category.jsp</result>
-            <allowed-methods>add,list</allowed-methods>
+            <result name="listAction" type="redirectAction">category_list.action</result>
+            <allowed-methods>add,list,updateUI,update,delete</allowed-methods>
+        </action>
+        <action name="article_*" class="articleAction" method="{1}">
+            <result name="list">/mgr_main.jsp</result>
+            <allowed-methods>list</allowed-methods>
         </action>
     </package>
 

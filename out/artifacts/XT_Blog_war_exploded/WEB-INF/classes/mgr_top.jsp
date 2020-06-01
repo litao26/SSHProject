@@ -54,7 +54,8 @@
     </div>
     <div class="h_top_right">
         <span style="margin-right: 50px"><s:property value="#session.curUser.username"/> </span>
-        <span><a href="#" style="color: lightseagreen">退出</a></span>
+        <span><a href="${pageContext.request.contextPath}/loginAciton_loginOut.action" style="color: lightseagreen"
+                 target="_parent">退出</a></span>
     </div>
 
 </div>

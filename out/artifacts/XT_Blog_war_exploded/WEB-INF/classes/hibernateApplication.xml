@@ -42,6 +42,8 @@
         <property name="mappingResources">
             <list>
                 <value>com/xuetao/entity/User.hbm.xml</value>
+                <value>com/xuetao/entity/Category.hbm.xml</value>
+                <value>com/xuetao/entity/Article.hbm.xml</value>
             </list>
         </property>
     </bean>

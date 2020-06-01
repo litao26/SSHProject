@@ -25,5 +25,22 @@
     <bean id="userDao" class="com.xuetao.dao.impl.UserDaoImpl">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-
+    <bean id="categoryAction" class="com.xuetao.controller.CategoryAction" scope="prototype">
+        <property name="categoryService" ref="categoryService" />
+    </bean>
+    <bean id="categoryService" class="com.xuetao.service.impl.CategoryServiceImpl">
+        <property name="categoryDao" ref="categoryDao" />
+    </bean>
+    <bean id="categoryDao" class="com.xuetao.dao.impl.CategoryDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="articleAction" class="com.xuetao.controller.ArticleAction" scope="prototype">
+        <property name="articleService" ref="articleService" />
+    </bean>
+    <bean id="articleService" class="com.xuetao.service.impl.ArticleServiceImpl">
+        <property name="articleDao" ref="articleDao" />
+    </bean>
+    <bean id="articleDao" class="com.xuetao.dao.impl.ArticleDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
 </beans>

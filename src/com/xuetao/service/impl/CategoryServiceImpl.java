@@ -29,4 +29,21 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> list = categoryDao.getAllCategory();
         return list;
     }
+
+    @Override
+    public Category getOneCategory(Integer cid) {
+        //调用dao层
+        Category category = categoryDao.getOneCategory(cid);
+        return category;
+    }
+
+    @Override
+    public void update(Category category) {
+        categoryDao.update(category);
+    }
+
+    @Override
+    public void delete(Category category) {
+        categoryDao.delete(category);
+    }
 }
