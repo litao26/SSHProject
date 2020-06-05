@@ -61,6 +61,14 @@
     </form>
 
 </div>
+<script>
+    $(function () {
 
+        // 发送请求获取分类数据
+        $.post("${pageContext.request.contextPath}/article_getCategory.action",{"parentid":0},function (data) {
+            console.log(data);
+        },"json")
+    });
+</script>
 </body>
 </html>

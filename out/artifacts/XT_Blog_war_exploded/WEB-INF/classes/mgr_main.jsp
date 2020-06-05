@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="/struts-tags" prefix="s"%>
 <%
     String ctx = request.getContextPath();
     pageContext.setAttribute("ctx", ctx);
@@ -51,17 +52,15 @@
         <li>序号</li>
         <li>标题</li>
         <li>学科</li>
-        <li>技能</li>
         <li>编辑</li>
         <li>删除</li>
     </ul>
 
-    <s:iterator value="list">
+    <s:iterator value="allArticle" var="article">
         <ul class="list_goods_ul">
-            <li>aaa</li>
-            <li>bbb</li>
-            <li>ccc</li>
-            <li>ddd</li>
+            <li><s:property value="#article.article_id" /></li>
+            <li><s:property value="#article.article_title" /></li>
+            <li><s:property value="#article.category.cname" /></li>
             <li>
                 <a href="#">
                 <img class="img_icon" src="${ctx }/images/edit_icon.png" alt=""></a>
@@ -87,8 +86,8 @@
         totalPage: 5,
         totalSize: 3,
         callback: function(num) {
-          /*  $(window).attr('location','/article_list.action?currPage='+num);*/
-            alert(num);
+            $(window).attr('location','/article_pageList.action?currPage='+num);
+
         }
     });
 

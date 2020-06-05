@@ -38,7 +38,7 @@
         </div>
         <div class="am-u-sm-12 am-u-md-3">
             <div class="am-input-group am-input-group-sm">
-                <input type="text" class="am-form-field" id="input_search">
+                <input type="text" class="am-form-field" id="input_search" value="<s:property value="#parameters.keyWord"/> ">
                 <span class="am-input-group-btn">
                     <button class="am-btn am-btn-default" type="button" id="input_search_btn">搜索</button>
                 </span>
@@ -56,7 +56,7 @@
         <li>删除</li>
     </ul>
 
-    <s:iterator value="allArticle" var="article">
+    <s:iterator value="list" var="article">
         <ul class="list_goods_ul">
             <li><s:property value="#article.article_id" /></li>
             <li><s:property value="#article.article_title" /></li>
@@ -66,7 +66,7 @@
                 <img class="img_icon" src="${ctx }/images/edit_icon.png" alt=""></a>
             </li>
             <li>
-                <a href="#">
+                <a href="${ctx }/article_delete.action?article_id=<s:property value="#article.article_id" />">
                     <img class="img_icon" src="${ctx }/images/delete_icon.png" alt="">
                 </a>
             </li>
@@ -82,19 +82,28 @@
     
     //分页
     $("#page").paging({
-        pageNo:1,
-        totalPage: 5,
-        totalSize: 3,
+        pageNo:<s:property value="currentPage" /> ,
+        totalPage: <s:property value="totalPage" />,
+        totalSize:  <s:property value="totalCount" />,
         callback: function(num) {
-          /*  $(window).attr('location','/article_list.action?currPage='+num);*/
-            alert(num);
+            // 获取搜索关键字
+            var keyWord = $("#input_search").val();
+            $(window).attr('location','/article_pageList.action?currPage='+num+"&keyWord="+keyWord);
+
         }
     });
 
     $("#add").click(function () {
-        alert("aaa");
+        // alert("aaa");
         $(window).attr('location','${ctx }/mgr_add_article.jsp');
     });
+    $("#input_search_btn").click(function () {
+        // 获取搜索关键字
+        var keyWord = $("#input_search").val();
+        // alert(keyWord)
+        // 发送请求
+        $(window).attr('location','/article_pageList.action?keyWord='+keyWord);
+    })
 </script>
 
 </body>
