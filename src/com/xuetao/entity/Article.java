@@ -7,7 +7,7 @@ import lombok.Setter;
 public class Article {
     private Integer article_id;
     private String article_title;
-    private Integer article_time;
+    private Long article_time;
     private String article_content;
     private String article_pic;
     private String article_desc;
@@ -21,6 +21,7 @@ public class Article {
                 ", article_time=" + article_time +
                 ", article_content='" + article_content + '\'' +
                 ", article_pic='" + article_pic + '\'' +
+                ", article_desc='" + article_desc + '\'' +
                 ", category=" + category +
                 '}';
     }

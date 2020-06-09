@@ -11,8 +11,6 @@ import java.util.List;
 public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao {
     @Override
     public Category save(Category category) {
-        //System.out.println("Categorylgajfj");
-
         this.getHibernateTemplate().save(category);
         return null;
     }

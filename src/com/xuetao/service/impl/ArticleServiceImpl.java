@@ -53,4 +53,20 @@ public class ArticleServiceImpl  implements ArticleService {
         List<Category> list = articleDao.getCategory(parentid);
         return list;
     }
+
+    @Override
+    public void save(Article article) {
+        articleDao.save(article);
+    }
+
+    @Override
+    public Article getOneArticle(Integer article_id) {
+        Article  resArticle = articleDao.getOneArticle(article_id);
+        return resArticle;
+    }
+
+    @Override
+    public void update(Article article) {
+        articleDao.update(article);
+    }
 }

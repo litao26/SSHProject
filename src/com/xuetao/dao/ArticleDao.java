@@ -17,4 +17,10 @@ public interface ArticleDao {
     void delete(Article article);
 
     List<Category> getCategory(Integer parentid);
+
+    void save(Article article);
+
+    Article getOneArticle(Integer article_id);
+
+    void update(Article article);
 }

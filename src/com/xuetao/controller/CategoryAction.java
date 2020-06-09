@@ -39,9 +39,8 @@ public class CategoryAction extends ActionSupport implements ModelDriven<Categor
         ActionContext.getContext().getValueStack().set("categoryList",list);
         return "list";
     }
+
     public String updateUI() throws IOException {
-        //System.out.println(category.getCid());
-        //System.out.println("updateUI__________");
         Category category2 = categoryService.getOneCategory(category.getCid());
         System.out.println(category2);
         //把数据给页面

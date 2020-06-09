@@ -43,4 +43,10 @@
     <bean id="articleDao" class="com.xuetao.dao.impl.ArticleDaoImpl">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+
+    <bean id="locationAction" class="com.xuetao.controller.LocationAction" scope="prototype">
+    </bean>
+    <bean id="webAction" class="com.xuetao.controller.WebAction" scope="prototype">
+        <property name="articleService" ref="articleService" />
+    </bean>
 </beans>

@@ -16,4 +16,10 @@ public interface ArticleService {
     void delete(Article article);
     /*根据id获取分类*/
     List<Category> getCategory(Integer parentid);
+
+    void save(Article article);
+
+    Article getOneArticle(Integer article_id);
+
+    void update(Article article);
 }
